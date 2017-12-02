@@ -1,0 +1,4 @@
+If your user doesnt have permissions to run docker run the bash script using "sudo -E bash runfirefox.sh" to preserve the local environment variables. If your user does have permissions just run the bash script normally. 
+
+TODO:
+Figure out how to mount a single file as a volume using docker-compose in order to use that to spin up the container. (need to be able to pass the .Xauthority file into the container as a voulme without having to volume in the whole home directory)

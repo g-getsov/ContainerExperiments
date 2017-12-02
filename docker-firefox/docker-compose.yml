@@ -1,0 +1,22 @@
+version: '3'
+services:
+    devenv:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        image: devenv/base
+        container_name: devenv
+        volumes:
+            - ../../Workspace:/Workspace # make configurable
+            - ../../Programs:/Programs # make configurable
+            - /tmp/.X11-unix:/tmp/.X11-unix
+            - $HOME/.Xauthority:/home/developer/.Xauthority
+        environment:
+            - DISPLAY=$DISPLAY # make this configurable
+        devices:
+            - /dev/snd
+        network_mode: host
+        pid: host
+        ipc: host
+        #stdin_open: true
+        #tty: true
