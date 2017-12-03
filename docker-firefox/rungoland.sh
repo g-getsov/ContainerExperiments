@@ -4,4 +4,6 @@ docker run -ti --rm \
 -v $HOME/.Xauthority:/home/developer/.Xauthority \
 -v /dev/snd:/dev/snd \
 -v /run/user/$UID/pulse/native:/home/developer/pulse/socket \
---net=host --pid=host --ipc=host firefox
+-v /home/anonymous/Programs/goland:/home/developer/goland \
+-v /home/anonymous/Workspace:/home/developer/Workspace \
+--net=host --pid=host --ipc=host goland 

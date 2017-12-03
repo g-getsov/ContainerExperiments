@@ -1,1 +1,1 @@
-docker build -t firefox .
+docker build -t goland .
