@@ -13,11 +13,11 @@ chmod 0440 /etc/sudoers.d/developer && \
 chown ${uid}:${gid} -R /home/developer && \
 export "PULSE_SERVER=unix:/home/developer/pulse/socket" && \
 mkdir ~/go && \
-sudo touch /etc/profile.d/goenv.sh && \
+touch /etc/profile.d/goenv.sh && \
 echo "export GOROOT=/usr/lib/go" >> /etc/profile.d/goenv.sh && \
 echo "export GOPATH=$HOME/go" >> /etc/profile.d/goenv.sh && \
 echo "export PATH=$PATH:$GOROOT/bin:$GOPATH/bin" >> /etc/profile.d/goenv.sh && \
-source /etc/profile.d/goenv.sh
+. /etc/profile.d/goenv.sh
 
 USER developer
 ENV HOME /home/developer
