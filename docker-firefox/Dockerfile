@@ -13,8 +13,6 @@ chmod 0440 /etc/sudoers.d/developer && \
 chown ${uid}:${gid} -R /home/developer && \
 export "PULSE_SERVER=unix:/home/developer/pulse/socket"
 
-#COPY /home/anonymous/.Xauthority /home/developer/.Xauthority
-
 USER developer
 ENV HOME /home/developer
 CMD /usr/bin/firefox -no-remote
