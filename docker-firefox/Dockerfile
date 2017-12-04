@@ -1,6 +1,6 @@
 FROM debian:buster-slim
 
-RUN apt-get update && apt-get install -y pulseaudio golang && rm -rf /var/cache/apt/
+RUN apt-get update && apt-get install -y pulseaudio golang git libgl1-mesa-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev && rm -rf /var/cache/apt/
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
@@ -11,15 +11,25 @@ echo "developer:x:${uid}:" >> /etc/group && \
 echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
 chmod 0440 /etc/sudoers.d/developer && \
 chown ${uid}:${gid} -R /home/developer && \
-export "PULSE_SERVER=unix:/home/developer/pulse/socket" && \
-mkdir ~/go && \
-touch /etc/profile.d/goenv.sh && \
-echo "export GOROOT=/usr/lib/go" >> /etc/profile.d/goenv.sh && \
-echo "export GOPATH=$HOME/go" >> /etc/profile.d/goenv.sh && \
-echo "export PATH=$PATH:$GOROOT/bin:$GOPATH/bin" >> /etc/profile.d/goenv.sh && \
-. /etc/profile.d/goenv.sh
+export "PULSE_SERVER=unix:/home/developer/pulse/socket"
+
+ENV HOME /home/developer
+ENV GOROOT /usr/lib/go
+ENV GOPATH $HOME/go
+ENV PATH $PATH:$GOROOT/bin:$GOPATH/bin
+
+RUN touch /etc/profile.d/goenv.sh && \
+echo "export GOROOT=$GOROOT" >> /etc/profile.d/goenv.sh && \
+echo "export GOPATH=$GOPATH" >> /etc/profile.d/goenv.sh && \
+echo "export PATH=$PATH" >> /etc/profile.d/goenv.sh
+
+COPY ./init.sh /home/developer/init.sh
+RUN chmod 755 /home/developer/init.sh && \
+chown ${uid}:${gid} /home/developer/init.sh
 
 USER developer
-ENV HOME /home/developer
-#CMD /home/developer/goland/bin/goland.sh
-CMD /bin/bash
+
+RUN mkdir ~/go && \
+. /etc/profile.d/goenv.sh
+
+ENTRYPOINT ["/home/developer/init.sh"]

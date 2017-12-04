@@ -4,6 +4,7 @@ docker run -ti --rm \
 -v $HOME/.Xauthority:/home/developer/.Xauthority:ro \
 -v /dev/snd:/dev/snd:ro \
 -v /run/user/$UID/pulse/native:/home/developer/pulse/socket:ro \
--v /home/anonymous/Programs/goland:/home/developer/goland \
--v /home/anonymous/Workspace:/home/developer/Workspace \
+-v $HOME/Programs/goland:/home/developer/goland \
+-v $HOME/Workspace:/home/developer/Workspace \
+-v $HOME/Workspace/go:/home/developer/go \
 --net=host --pid=host --ipc=host goland 
