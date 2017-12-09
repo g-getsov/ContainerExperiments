@@ -1,9 +1,12 @@
 docker run -ti --rm \
 -e DISPLAY \
--v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+-v /tmp/.X11-unix:/tmp/.X11-unix:rw \
 -v $HOME/.Xauthority:/home/developer/.Xauthority:ro \
 --device /dev/snd:/dev/snd \
 --device /dev/dri/card0:/dev/dri/card0 \
+--device /dev/dri/renderD128:/dev/dri/renderD128 \
+--device /dev/nvidia0:/dev/nvidia0 \
+--device /dev/nvidiactl:/dev/nvidiactl \
 -v /run/user/$UID/pulse/native:/home/developer/pulse/socket:ro \
 -v $HOME/Programs/goland:/home/developer/goland \
 -v $HOME/Workspace:/home/developer/Workspace \
