@@ -2,7 +2,8 @@ docker run -ti --rm \
 -e DISPLAY \
 -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
 -v $HOME/.Xauthority:/home/developer/.Xauthority:ro \
--v /dev/snd:/dev/snd:ro \
+--device /dev/snd:/dev/snd \
+--device /dev/dri/card0:/dev/dri/card0 \
 -v /run/user/$UID/pulse/native:/home/developer/pulse/socket:ro \
 -v $HOME/Programs/goland:/home/developer/goland \
 -v $HOME/Workspace:/home/developer/Workspace \

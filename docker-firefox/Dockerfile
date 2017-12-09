@@ -1,6 +1,10 @@
 FROM debian:buster-slim
 
-RUN apt-get update && apt-get install -y pulseaudio golang git libgl1-mesa-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev && rm -rf /var/cache/apt/
+RUN echo "deb http://ftp.ua.debian.org/debian buster contrib non-free" | tee -a /etc/apt/sources.list.d/docker.list && \
+echo "deb-src http://ftp.ua.debian.org/debian buster contrib non-free" | tee -a /etc/apt/sources.list.d/docker.list && \
+apt-get update && \
+DEBIAN_FRONTEND=noninteractive apt-get -y install firefox-esr pulseaudio golang git nvidia-driver libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev && \
+rm -rf /var/cache/apt/
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
