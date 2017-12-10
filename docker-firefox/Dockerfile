@@ -4,16 +4,17 @@ FROM debian:buster-slim
 RUN echo "deb http://ftp.ua.debian.org/debian buster contrib non-free" | tee -a /etc/apt/sources.list.d/docker.list && \
 echo "deb-src http://ftp.ua.debian.org/debian buster contrib non-free" | tee -a /etc/apt/sources.list.d/docker.list
 
+# Disable terminal prompt interaction during setup
+ENV DEBIAN_FRONTEND=noninteractive 
+
 # Install dependencies
 RUN apt-get update && \
-DEBIAN_FRONTEND=noninteractive apt-get -y install \
-firefox-esr \
+apt-get -y install \
 pulseaudio \
 golang \
 git \
-xserver-xorg-video-all \
 nvidia-driver \
-mesa-utils \
+freeglut3-dev \
 libxcursor-dev \
 libxi-dev \
 libxrandr-dev \
@@ -56,6 +57,8 @@ USER developer
 # Export go env parameters for the container user
 RUN mkdir ~/go && \
 . /etc/profile.d/goenv.sh
+
+WORKDIR /home/developer
 
 # Run initialization script
 ENTRYPOINT ["/home/developer/init.sh"]
