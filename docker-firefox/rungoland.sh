@@ -1,4 +1,4 @@
-docker run -ti --rm --privileged \
+docker run -ti --privileged \
 -e DISPLAY \
 -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
 -v $HOME/.Xauthority:/home/developer/.Xauthority:ro \
